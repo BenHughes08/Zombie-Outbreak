@@ -6,9 +6,7 @@
 - [Gameplay](#gameplay)
 - [Features](#features)
 - [Controls](#controls)
-- [Screenshots](#screenshots)
 - [Contributing](#contributing)
-- [License](#license)
 
 ## Introduction
 
