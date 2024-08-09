@@ -1,22 +1,26 @@
 let playerX = 500;
 let playerY = 500;
-let speed = 5; // Adjust speed for smoother movement
+let speed = 300; // Pixels per second
 let keys = { w: false, a: false, s: false, d: false, ArrowUp: false, ArrowDown: false, ArrowLeft: false, ArrowRight: false };
+let lastTime = 0;
 
 // Function to update the player's position
-function updatePlayerPosition() {
+function updatePlayerPosition(deltaTime) {
+    const moveSpeed = speed * (deltaTime / 1000); // Speed in pixels per frame
+
     if (keys.w || keys.ArrowUp) {
-        playerY -= speed;
+        playerY -= moveSpeed;
     }
     if (keys.s || keys.ArrowDown) {
-        playerY += speed;
+        playerY += moveSpeed;
     }
     if (keys.a || keys.ArrowLeft) {
-        playerX -= speed;
+        playerX -= moveSpeed;
     }
     if (keys.d || keys.ArrowRight) {
-        playerX += speed;
+        playerX += moveSpeed;
     }
+
     let player = document.getElementById("player");
     if (player) {
         player.style.left = playerX + "px";
@@ -25,8 +29,12 @@ function updatePlayerPosition() {
 }
 
 // Game loop
-function gameLoop() {
-    updatePlayerPosition();
+function gameLoop(timestamp) {
+    if (!lastTime) lastTime = timestamp;
+    const deltaTime = timestamp - lastTime;
+    lastTime = timestamp;
+
+    updatePlayerPosition(deltaTime);
     requestAnimationFrame(gameLoop);
 }
 
@@ -68,5 +76,6 @@ generateBoosts();
 setInterval(() => {
     let player = document.getElementById("player");
     let zombie = document.getElementById("zombie");
-    let speed = document.getElementById("speed");
+    let speedElement = document.getElementById("speed");
+    // Implement additional logic if needed
 }, 1000);
