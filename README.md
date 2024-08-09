@@ -1,7 +1,5 @@
 # Zombie Outbreak
 
-![Zombie Outbreak Banner]
-
 ## Table of Contents
 
 - [Introduction](#introduction)
@@ -35,13 +33,6 @@ In **Zombie Outbreak**, you control a character in a 2D environment where you mu
   - Left Arrow: Move left
   - Right Arrow: Move right
 
-## Screenshots
-
-![Screenshot 1](path/to/your/screenshot1.png)
-*Description of Screenshot 1*
-
-![Screenshot 2](path/to/your/screenshot2.png)
-*Description of Screenshot 2*
 
 ## Contributing
 
