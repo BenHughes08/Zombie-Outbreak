@@ -1,36 +1,41 @@
 let playerX = 500;
 let playerY = 500;
-let zombieX = 0;
-let zombieY = 0;
 let multiplyer = 1;
-let hp = 100;
+let keys = { w: false, a: false, s: false, d: false, ArrowUp: false, ArrowDown: false, ArrowLeft: false, ArrowRight: false };
 
-window.onkeydown = function(event) {
-    let key = event.key;
-    console.log(`Key pressed: ${key}`); // Debugging line
-    if (key === "ArrowDown" || key === "s") {
-        playerY += 50 * multiplyer;
-    }
-    if (key === "ArrowUp" || key === "w") {
+// Function to update the player's position
+function updatePlayerPosition() {
+    if (keys.w || keys.ArrowUp) {
         playerY -= 50 * multiplyer;
     }
-    if (key === "ArrowLeft" || key === "a") {
+    if (keys.s || keys.ArrowDown) {
+        playerY += 50 * multiplyer;
+    }
+    if (keys.a || keys.ArrowLeft) {
         playerX -= 50 * multiplyer;
     }
-    if (key === "ArrowRight" || key === "d") {
+    if (keys.d || keys.ArrowRight) {
         playerX += 50 * multiplyer;
     }
-    console.log(`Player position: (${playerX}, ${playerY})`); // Debugging line
-    updatePlayerPosition();
-};
-
-function updatePlayerPosition() {
     let player = document.getElementById("player");
     if (player) {
         player.style.left = playerX + "px";
         player.style.top = playerY + "px";
     }
 }
+
+window.addEventListener('keydown', (e) => {
+    if (keys.hasOwnProperty(e.key)) {
+        keys[e.key] = true;
+    }
+    updatePlayerPosition();
+});
+
+window.addEventListener('keyup', (e) => {
+    if (keys.hasOwnProperty(e.key)) {
+        keys[e.key] = false;
+    }
+});
 
 function checkCollision(zombie, player) {
     let rect1 = zombie.getBoundingClientRect();
