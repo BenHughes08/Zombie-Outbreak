@@ -7,16 +7,16 @@ let hp = 100;
 
 window.onkeydown = function(event) {
     let key = event.key;
-    if (key === "ArrowDown") {
+    if (key === "ArrowDown" || key === "s") {
         playerY += 50 * multiplyer;
     }
-    if (key === "ArrowUp") {
+    if (key === "ArrowUp" || key === "w") {
         playerY -= 50 * multiplyer;
     }
-    if (key === "ArrowLeft") {
+    if (key === "ArrowLeft" || key === "a") {
         playerX -= 50 * multiplyer;
     }
-    if (key === "ArrowRight") {
+    if (key === "ArrowRight" || key === "d") {
         playerX += 50 * multiplyer;
     }
 };
