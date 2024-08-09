@@ -1,24 +1,22 @@
 let playerX = 500;
 let playerY = 500;
-let speed = 300; // Pixels per second
+let playerSpeed = 5; // Speed for player movement in pixels per frame
+let zombieSpeed = 2; // Speed for zombie movement in pixels per frame
 let keys = { w: false, a: false, s: false, d: false, ArrowUp: false, ArrowDown: false, ArrowLeft: false, ArrowRight: false };
-let lastTime = 0;
 
 // Function to update the player's position
-function updatePlayerPosition(deltaTime) {
-    const moveSpeed = speed * (deltaTime / 1000); // Speed in pixels per frame
-
+function updatePlayerPosition() {
     if (keys.w || keys.ArrowUp) {
-        playerY -= moveSpeed;
+        playerY -= playerSpeed;
     }
     if (keys.s || keys.ArrowDown) {
-        playerY += moveSpeed;
+        playerY += playerSpeed;
     }
     if (keys.a || keys.ArrowLeft) {
-        playerX -= moveSpeed;
+        playerX -= playerSpeed;
     }
     if (keys.d || keys.ArrowRight) {
-        playerX += moveSpeed;
+        playerX += playerSpeed;
     }
 
     let player = document.getElementById("player");
@@ -28,13 +26,36 @@ function updatePlayerPosition(deltaTime) {
     }
 }
 
-// Game loop
-function gameLoop(timestamp) {
-    if (!lastTime) lastTime = timestamp;
-    const deltaTime = timestamp - lastTime;
-    lastTime = timestamp;
+// Function to update the zombie's position
+function updateZombiePosition() {
+    let zombie = document.getElementById("zombie");
+    if (zombie) {
+        let zombieX = parseFloat(zombie.style.left) || 0;
+        let zombieY = parseFloat(zombie.style.top) || 0;
 
-    updatePlayerPosition(deltaTime);
+        // Calculate the direction towards the player
+        let dx = playerX - zombieX;
+        let dy = playerY - zombieY;
+        let distance = Math.sqrt(dx * dx + dy * dy);
+
+        // Normalize the direction vector and move the zombie
+        if (distance > 0) {
+            dx /= distance;
+            dy /= distance;
+            zombieX += dx * zombieSpeed;
+            zombieY += dy * zombieSpeed;
+        }
+
+        zombie.style.left = zombieX + "px";
+        zombie.style.top = zombieY + "px";
+    }
+}
+
+// Game loop
+function gameLoop() {
+    updatePlayerPosition();
+    updateZombiePosition();
+
     requestAnimationFrame(gameLoop);
 }
 
@@ -74,8 +95,5 @@ function generateBoosts() {
 generateBoosts();
 
 setInterval(() => {
-    let player = document.getElementById("player");
-    let zombie = document.getElementById("zombie");
-    let speedElement = document.getElementById("speed");
     // Implement additional logic if needed
 }, 1000);
