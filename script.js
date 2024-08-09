@@ -7,6 +7,7 @@ let hp = 100;
 
 window.onkeydown = function(event) {
     let key = event.key;
+    console.log(`Key pressed: ${key}`); // Debugging line
     if (key === "ArrowDown" || key === "s") {
         playerY += 50 * multiplyer;
     }
@@ -19,7 +20,17 @@ window.onkeydown = function(event) {
     if (key === "ArrowRight" || key === "d") {
         playerX += 50 * multiplyer;
     }
+    console.log(`Player position: (${playerX}, ${playerY})`); // Debugging line
+    updatePlayerPosition();
 };
+
+function updatePlayerPosition() {
+    let player = document.getElementById("player");
+    if (player) {
+        player.style.left = playerX + "px";
+        player.style.top = playerY + "px";
+    }
+}
 
 function checkCollision(zombie, player) {
     let rect1 = zombie.getBoundingClientRect();
